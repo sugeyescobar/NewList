@@ -1,0 +1,71 @@
+import java.util.Scanner;
+
+/**
+ *
+ * @author ESCOBAR
+ */
+public class NewList {
+    Scanner sc = new Scanner(System.in);
+    static class NODO {
+        String name;
+        NODO next;
+    }
+
+    public void inicial() {
+        Scanner sc = new Scanner(System.in);
+        NODO TOP = null;
+        TOP = new NODO();
+        System.out.println("ingresa de nodo incial");
+        TOP.name = sc.nextLine();
+        TOP.next = null;
+
+        dump("CASE 1", TOP);
+        NODO TEMP;
+        TEMP = new NODO();
+        System.out.println("ingresa el nodo anterior a inicial");
+        TEMP.name = sc.nextLine();
+        TEMP.next = TOP;
+        TOP = TEMP;
+
+        dump("CASE 2", TOP);
+        TEMP = new NODO();
+        System.out.println("ingresa el nodo posterior a inicial");
+        TEMP.name = sc.nextLine();
+        TEMP.next = null;
+        
+        NODO TEMP2;
+
+        TEMP2 = TOP;
+
+        while (TEMP2.next != null) {
+            TEMP2 = TEMP2.next;
+        }
+
+        TEMP2.next = TEMP;
+
+        dump("CASE 3", TOP);
+        TEMP = new NODO();
+        System.out.println("ingresa el nodo intermedio");
+        TEMP.name = sc.nextLine();
+
+        TEMP2 = TOP;
+
+        while (TEMP2.name.equals(TOP.name) == false) {
+            TEMP2 = TEMP2.next;
+        }
+
+        TEMP.next = TEMP2.next;
+        TEMP2.next = TEMP;
+
+        dump("CASE 4", TOP);
+    }
+    static void dump(String msg, NODO TNODE) {
+        System.out.print(msg + " ");
+
+        while (TNODE != null) {
+            System.out.print(TNODE.name + " ");
+            TNODE = TNODE.next;
+        }
+        System.out.println();
+    }
+}
