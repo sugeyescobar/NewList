@@ -1,71 +1,817 @@
-import java.util.Scanner;
+CREATE TABLE alumnos_teso (
+id_alum number(5) primary key,
+matricula number (10),
+CONSTRAINT unique_ma UNIQUE (matricula), 
+Nombre varchar2(20),
+apellido_p varchar2(20),
+apellido_m varchar2(20),
+carrera varchar2(80),
+grupo varchar2(20),
+semestre number(2),
+CONSTRAINT ch_semestre check(Semestre<=9),
+edificio varchar2(2),
+CONSTRAINT ch_edi check(Edificio in ('A','B','C','D','E','F','G','H','I')),
+promedio number(5,2)
+)
+select 
+drop table alumnos_teso;
+drop procedure pa_insert_alumnoss;
 
-/**
- *
- * @author ESCOBAR
- */
-public class NewList {
-    Scanner sc = new Scanner(System.in);
-    static class NODO {
-        String name;
-        NODO next;
-    }
+create or replace procedure pa_insert_alumnos_tesoem
+(a_id_alum in number default 0, a_matricula in number ,a_nombre in varchar2 default 'Nombre',
+a_apellido_p in varchar2 default 'Apellido Paterno', a_apellido_m in varchar2 default 'Apellido Materno',
+a_carrera in varchar2 default 'carrera',a_grupo in nvarchar2 default 'Grupo' ,a_semestre in number default 'A',a_edificio in varchar default 'edificio',
+a_promedio in number default 0)
+as
+begin
+insert into alumnos_teso values (a_id_alum ,a_matricula, a_nombre, a_apellido_p, a_apellido_m ,a_carrera ,a_grupo , a_semestre,a_edificio, a_promedio);
+end;
 
-    public void inicial() {
-        Scanner sc = new Scanner(System.in);
-        NODO TOP = null;
-        TOP = new NODO();
-        System.out.println("ingresa de nodo incial");
-        TOP.name = sc.nextLine();
-        TOP.next = null;
 
-        dump("CASE 1", TOP);
-        NODO TEMP;
-        TEMP = new NODO();
-        System.out.println("ingresa el nodo anterior a inicial");
-        TEMP.name = sc.nextLine();
-        TEMP.next = TOP;
-        TOP = TEMP;
+drop table alumno_teso;
+SELECT * FROM alumnos_teso;
 
-        dump("CASE 2", TOP);
-        TEMP = new NODO();
-        System.out.println("ingresa el nodo posterior a inicial");
-        TEMP.name = sc.nextLine();
-        TEMP.next = null;
-        
-        NODO TEMP2;
+--CREACION DE TABLA LLAMADA gastro_alums
+CREATE TABLE gastro_alums (
+  id_gastro NUMBER(5),
+  matri_gas NUMBER(10),
+  CONSTRAINT unique_mat UNIQUE (matri_gas),
+  "Nombre de Alumno" VARCHAR2(80),
+  grupo_gas VARCHAR2(20),
+  edificio_gas VARCHAR2(2),
+  CONSTRAINT ch_edif CHECK (edificio_gas IN ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'))
+);
 
-        TEMP2 = TOP;
+CREATE TABLE energias_alums (
+  id_ener NUMBER(5),
+  matri_ener NUMBER(10),
+  CONSTRAINT unique_matr UNIQUE (matri_ener),
+  "Nombre de Alumno" VARCHAR2(80),
+  grupo_ener VARCHAR2(20),
+  edificio_ener VARCHAR2(2),
+  CONSTRAINT ch_edifi CHECK (edificio_ener IN ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'))
+);
 
-        while (TEMP2.next != null) {
-            TEMP2 = TEMP2.next;
-        }
+CREATE TABLE administracion_alums(
+  id_admin NUMBER(5),
+  matri_admin NUMBER(10),
+  CONSTRAINT unique_matri UNIQUE (matri_admin),
+  "Nombre de Alumno" VARCHAR2(80),
+  grupo_admin VARCHAR2(20),
+  edificio_admin VARCHAR2(2),
+  CONSTRAINT ch_edific CHECK (edificio_admin IN ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'))
+);
 
-        TEMP2.next = TEMP;
+CREATE TABLE automotrices_alums(
+  id_aut NUMBER(5),
+  matri_aut NUMBER(10),
+  CONSTRAINT unique_matric UNIQUE (matri_aut),
+  "Nombre de Alumno" VARCHAR2(80),
+  grupo_aut VARCHAR2(20),
+  edificio_aut VARCHAR2(2),
+  CONSTRAINT ch_edifici CHECK (edificio_aut IN ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'))
+);
 
-        dump("CASE 3", TOP);
-        TEMP = new NODO();
-        System.out.println("ingresa el nodo intermedio");
-        TEMP.name = sc.nextLine();
+CREATE TABLE ambiental_alums(
+  id_amb NUMBER(5),
+  matri_amb NUMBER(10),
+  CONSTRAINT unique_matri_amb UNIQUE (matri_amb),
+  "Nombre de Alumno" VARCHAR2(80),
+  grupo_amb VARCHAR2(20),
+  edificio_amb VARCHAR2(2),
+  CONSTRAINT ch_edi_tesoem CHECK (edificio_amb IN ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'))
+);
 
-        TEMP2 = TOP;
 
-        while (TEMP2.name.equals(TOP.name) == false) {
-            TEMP2 = TEMP2.next;
-        }
+CREATE TABLE industrial_alums(
+  id_ind NUMBER(5),
+  matri_ind NUMBER(10),
+  CONSTRAINT unique_matri_in UNIQUE (matri_ind),
+  "Nombre de Alumno" VARCHAR2(80),
+  grupo_ind VARCHAR2(20),
+  edificio_ind VARCHAR2(2),
+  CONSTRAINT ch_edi_teso CHECK (edificio_ind IN ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'))
+);
+CREATE TABLE sistemas_alums(
+  id_sis NUMBER(5),
+  matri_sis NUMBER(10),
+  CONSTRAINT unique_matri_sis UNIQUE (matri_sis),
+  "Nombre de Alumno"  VARCHAR2(80),
+  grupo_sis VARCHAR2(20),
+  edificio_sis VARCHAR2(2),
+  CONSTRAINT ch_ed_sis CHECK (edificio_sis IN ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'))
+);
 
-        TEMP.next = TEMP2.next;
-        TEMP2.next = TEMP;
+CREATE TABLE tics_alums(
+  id_tics NUMBER(5),
+  matri_tics NUMBER(10),
+  CONSTRAINT unique_matri_tics UNIQUE (matri_tics),
+  "Nombre de Alumno" VARCHAR2(80),
+  grupo_tics VARCHAR2(20),
+  edificio_tics VARCHAR2(2),
+  CONSTRAINT ch_ed_tesoe CHECK (edificio_tics IN ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'))
+);
 
-        dump("CASE 4", TOP);
-    }
-    static void dump(String msg, NODO TNODE) {
-        System.out.print(msg + " ");
+CREATE TABLE contador_alums(
+  id_cp NUMBER(5),
+  matri_cp NUMBER(10),
+  CONSTRAINT unique_matri_cp UNIQUE (matri_cp),
+  "Nombre de Alumno" VARCHAR2(80),
+  grupo_cp VARCHAR2(20),
+  edificio_cp VARCHAR2(2),
+  CONSTRAINT ch_ed_cp CHECK (edificio_cp IN ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'))
+);
+DROP TABLE administracion;
 
-        while (TNODE != null) {
-            System.out.print(TNODE.name + " ");
-            TNODE = TNODE.next;
-        }
-        System.out.println();
-    }
-}
+select * from gastro_alums;
+select * from energias_alums;
+select * from administracion_alums;
+select * from automotrices_alums;
+select * from ambiental_alums;
+select * from industrial_alums;
+select * from sistemas_alums;
+select * from tics_alums;
+select * from contador_alums;
+
+
+drop table gastro_alums;
+drop table energias_alums;
+drop table administracion_alums;
+drop table automotrices_alums;
+drop table industrial_alums;
+drop table sistemas_alums;
+drop table tics_alums;
+drop table contador_alums;
+drop table ambiental_alums;
+
+
+create or replace procedure pa_insert_alumnos_carreras
+as
+begin
+--
+    INSERT INTO gastro_alums (id_gastro,matri_gas,"Nombre de Alumno",grupo_gas, edificio_gas)
+    select id_alum, matricula, Nombre   ||' '|| apellido_p ||' '|| apellido_m ,grupo, edificio
+    from alumnos_teso 
+    where  carrera='Lic. Gastronomia';
+    
+    INSERT INTO energias_alums (id_ener,matri_ener,"Nombre de Alumno",grupo_ener, edificio_ener)
+    select id_alum, matricula, Nombre   ||' '|| apellido_p ||' '|| apellido_m ,grupo, edificio
+    from alumnos_teso
+    where  carrera='Ing. Energias Renovables';
+    
+    INSERT INTO administracion_alums (id_admin,matri_admin,"Nombre de Alumno",grupo_admin, edificio_admin)
+    select id_alum, matricula, Nombre   ||' '|| apellido_p ||' '|| apellido_m ,grupo, edificio
+    from alumnos_teso
+    where  carrera='Lic. Administracion';
+    
+    INSERT INTO automotrices_alums (id_aut,matri_aut,"Nombre de Alumno",grupo_aut, edificio_aut)
+    select id_alum, matricula, Nombre   ||' '|| apellido_p ||' '|| apellido_m ,grupo, edificio
+    from alumnos_teso
+    where  carrera='Ing. Sistemas Automotrices';
+    
+    INSERT INTO industrial_alums(id_ind,matri_ind,"Nombre de Alumno",grupo_ind, edificio_ind)
+    select id_alum, matricula, Nombre   ||' '|| apellido_p ||' '|| apellido_m ,grupo , edificio
+    from alumnos_teso
+    where  carrera='Ing. Industrial';
+    
+    INSERT INTO ambiental_alums (id_amb,matri_amb,"Nombre de Alumno",grupo_amb, edificio_amb)
+    select id_alum, matricula, Nombre   ||' '|| apellido_p ||' '|| apellido_m,grupo , edificio
+    from alumnos_teso
+    where  carrera='Ing. Ambiental';
+    
+    INSERT INTO sistemas_alums (id_sis,matri_sis,"Nombre de Alumno",grupo_sis, edificio_sis)
+    select id_alum, matricula, Nombre   ||' '|| apellido_p ||' '|| apellido_m ,grupo, edificio
+    from alumnos_teso
+    where  carrera='Ing. Sistemas Computacionales';
+    
+    INSERT INTO tics_alums (id_tics,matri_tics,"Nombre de Alumno",grupo_tics, edificio_tics)
+    select id_alum, matricula, Nombre   ||' '|| apellido_p ||' '|| apellido_m ,grupo, edificio
+    from alumnos_teso
+    where  carrera='Ing. Tecnologias de la Información y Comunicaciones';
+    
+    INSERT INTO contador_alums (id_cp,matri_cp,"Nombre de Alumno",grupo_cp, edificio_cp)
+    select id_alum, matricula, Nombre   ||' '|| apellido_p ||' '|| apellido_m ,grupo, edificio
+    from alumnos_teso
+    where  carrera='Lic. Contador Público';
+    
+end;
+drop procedure pa_insert_alumnos_carreras;
+execute pa_insert_alumnos_carreras;
+
+----------------------CREACION DE JOINS-----------------------------------------------------------------
+
+SELECT a.*
+FROM alumnos_teso a
+LEFT JOIN gastro_alums g ON a.id_alum = g.id_gastro AND g.grupo_gas LIKE '1%'
+LEFT JOIN sistemas_alums s ON a.id_alum = s.id_sis AND s.grupo_sis LIKE '1%'
+LEFT JOIN tics_alums t ON a.id_alum = t.id_tics AND t.grupo_tics LIKE '1%'
+LEFT JOIN administracion_alums d ON a.id_alum =d.id_admin AND d.grupo_admin LIKE '1%'
+LEFT JOIN contador_alums c ON a.id_alum =c.id_cp AND c.grupo_cp LIKE '1%'
+LEFT JOIN ambiental_alums n ON a.id_alum =n.id_amb AND n.grupo_amb LIKE '1%'
+LEFT JOIN industrial_alums i ON a.id_alum =i.id_ind AND i.grupo_ind LIKE '1%'
+LEFT JOIN energias_alums e ON a.id_alum =e.id_ener AND e.grupo_ener LIKE '1%'
+LEFT JOIN automotrices_alums r ON a.id_alum =r.id_aut AND r.grupo_aut LIKE '1%'
+WHERE a.grupo LIKE '1%'
+   OR g.grupo_gas IS NOT NULL
+   OR s.grupo_sis IS NOT NULL
+   OR t.grupo_tics IS NOT NULL
+   OR d.grupo_admin IS NOT NULL
+   OR c.grupo_cp IS NOT NULL
+   OR n.grupo_amb IS NOT NULL
+   OR i.grupo_ind IS NOT NULL
+   OR e.grupo_ener IS NOT NULL
+   OR r.grupo_aut IS NOT NULL;
+
+-----------------------COMPARACION PARA SEGUNDO SEMESTRE 
+select * from alumnos_teso where grupo like '2%'; 
+select * from alumnos_teso where semestre = 2;
+SELECT a.*
+FROM alumnos_teso a
+LEFT JOIN gastro_alums g ON a.id_alum = g.id_gastro AND g.grupo_gas LIKE '2%'
+LEFT JOIN sistemas_alums s ON a.id_alum = s.id_sis AND s.grupo_sis LIKE '2%'
+LEFT JOIN tics_alums t ON a.id_alum = t.id_tics AND t.grupo_tics LIKE '2%'
+LEFT JOIN administracion_alums d ON a.id_alum =d.id_admin AND d.grupo_admin LIKE '2%'
+LEFT JOIN contador_alums c ON a.id_alum =c.id_cp AND c.grupo_cp LIKE '2%'
+LEFT JOIN ambiental_alums n ON a.id_alum =n.id_amb AND n.grupo_amb LIKE '2%'
+LEFT JOIN industrial_alums i ON a.id_alum =i.id_ind AND i.grupo_ind LIKE '2%'
+LEFT JOIN energias_alums e ON a.id_alum =e.id_ener AND e.grupo_ener LIKE '2%'
+LEFT JOIN automotrices_alums r ON a.id_alum =r.id_aut AND r.grupo_aut LIKE '2%'
+WHERE a.grupo LIKE '2%'
+   OR g.grupo_gas IS NOT NULL
+   OR s.grupo_sis IS NOT NULL
+   OR t.grupo_tics IS NOT NULL
+   OR d.grupo_admin IS NOT NULL
+   OR c.grupo_cp IS NOT NULL
+   OR n.grupo_amb IS NOT NULL
+   OR i.grupo_ind IS NOT NULL
+   OR e.grupo_ener IS NOT NULL
+   OR r.grupo_aut IS NOT NULL;
+
+
+-----------------------COMPARACION PARA TERCER SEMESTRE 
+SELECT a.*
+FROM alumnos_teso a
+LEFT JOIN gastro_alums g ON a.id_alum = g.id_gastro AND g.grupo_gas LIKE '3%'
+LEFT JOIN sistemas_alums s ON a.id_alum = s.id_sis AND s.grupo_sis LIKE '3%'
+LEFT JOIN tics_alums t ON a.id_alum = t.id_tics AND t.grupo_tics LIKE '3%'
+LEFT JOIN administracion_alums d ON a.id_alum =d.id_admin AND d.grupo_admin LIKE '3%'
+LEFT JOIN contador_alums c ON a.id_alum =c.id_cp AND c.grupo_cp LIKE '3%'
+LEFT JOIN ambiental_alums n ON a.id_alum =n.id_amb AND n.grupo_amb LIKE '3%'
+LEFT JOIN industrial_alums i ON a.id_alum =i.id_ind AND i.grupo_ind LIKE '3%'
+LEFT JOIN energias_alums e ON a.id_alum =e.id_ener AND e.grupo_ener LIKE '3%'
+LEFT JOIN automotrices_alums r ON a.id_alum =r.id_aut AND r.grupo_aut LIKE '3%'
+WHERE a.grupo LIKE '3%'
+   OR g.grupo_gas IS NOT NULL
+   OR s.grupo_sis IS NOT NULL
+   OR t.grupo_tics IS NOT NULL
+   OR d.grupo_admin IS NOT NULL
+   OR c.grupo_cp IS NOT NULL
+   OR n.grupo_amb IS NOT NULL
+   OR i.grupo_ind IS NOT NULL
+   OR e.grupo_ener IS NOT NULL
+   OR r.grupo_aut IS NOT NULL;
+
+-----------------------COMPARACION PARA CUARTO SEMESTRE 
+SELECT a.*
+FROM alumnos_teso a
+LEFT JOIN gastro_alums g ON a.id_alum = g.id_gastro AND g.grupo_gas LIKE '4%'
+LEFT JOIN sistemas_alums s ON a.id_alum = s.id_sis AND s.grupo_sis LIKE '4%'
+LEFT JOIN tics_alums t ON a.id_alum = t.id_tics AND t.grupo_tics LIKE '4%'
+LEFT JOIN administracion_alums d ON a.id_alum =d.id_admin AND d.grupo_admin LIKE '4%'
+LEFT JOIN contador_alums c ON a.id_alum =c.id_cp AND c.grupo_cp LIKE '4%'
+LEFT JOIN ambiental_alums n ON a.id_alum =n.id_amb AND n.grupo_amb LIKE '4%'
+LEFT JOIN industrial_alums i ON a.id_alum =i.id_ind AND i.grupo_ind LIKE '4%'
+LEFT JOIN energias_alums e ON a.id_alum =e.id_ener AND e.grupo_ener LIKE '4%'
+LEFT JOIN automotrices_alums r ON a.id_alum =r.id_aut AND r.grupo_aut LIKE '4%'
+WHERE a.grupo LIKE '4%'
+   OR g.grupo_gas IS NOT NULL
+   OR s.grupo_sis IS NOT NULL
+   OR t.grupo_tics IS NOT NULL
+   OR d.grupo_admin IS NOT NULL
+   OR c.grupo_cp IS NOT NULL
+   OR n.grupo_amb IS NOT NULL
+   OR i.grupo_ind IS NOT NULL
+   OR e.grupo_ener IS NOT NULL
+   OR r.grupo_aut IS NOT NULL;
+
+-----------------------COMPARACION PARA QUINCE SEMESTRE 
+SELECT a.*
+FROM alumnos_teso a
+LEFT JOIN gastro_alums g ON a.id_alum = g.id_gastro AND g.grupo_gas LIKE '5%'
+LEFT JOIN sistemas_alums s ON a.id_alum = s.id_sis AND s.grupo_sis LIKE '5%'
+LEFT JOIN tics_alums t ON a.id_alum = t.id_tics AND t.grupo_tics LIKE '5%'
+LEFT JOIN administracion_alums d ON a.id_alum =d.id_admin AND d.grupo_admin LIKE '5%'
+LEFT JOIN contador_alums c ON a.id_alum =c.id_cp AND c.grupo_cp LIKE '5%'
+LEFT JOIN ambiental_alums n ON a.id_alum =n.id_amb AND n.grupo_amb LIKE '5%'
+LEFT JOIN industrial_alums i ON a.id_alum =i.id_ind AND i.grupo_ind LIKE '5%'
+LEFT JOIN energias_alums e ON a.id_alum =e.id_ener AND e.grupo_ener LIKE '5%'
+LEFT JOIN automotrices_alums r ON a.id_alum =r.id_aut AND r.grupo_aut LIKE '5%'
+WHERE a.grupo LIKE '5%'
+   OR g.grupo_gas IS NOT NULL
+   OR s.grupo_sis IS NOT NULL
+   OR t.grupo_tics IS NOT NULL
+   OR d.grupo_admin IS NOT NULL
+   OR c.grupo_cp IS NOT NULL
+   OR n.grupo_amb IS NOT NULL
+   OR i.grupo_ind IS NOT NULL
+   OR e.grupo_ener IS NOT NULL
+   OR r.grupo_aut IS NOT NULL;
+
+-----------------------COMPARACION PARA SEXTO SEMESTRE 
+SELECT a.*
+FROM alumnos_teso a
+LEFT JOIN gastro_alums g ON a.id_alum = g.id_gastro AND g.grupo_gas LIKE '6%'
+LEFT JOIN sistemas_alums s ON a.id_alum = s.id_sis AND s.grupo_sis LIKE '6%'
+LEFT JOIN tics_alums t ON a.id_alum = t.id_tics AND t.grupo_tics LIKE '6%'
+LEFT JOIN administracion_alums d ON a.id_alum =d.id_admin AND d.grupo_admin LIKE '6%'
+LEFT JOIN contador_alums c ON a.id_alum =c.id_cp AND c.grupo_cp LIKE '6%'
+LEFT JOIN ambiental_alums n ON a.id_alum =n.id_amb AND n.grupo_amb LIKE '6%'
+LEFT JOIN industrial_alums i ON a.id_alum =i.id_ind AND i.grupo_ind LIKE '6%'
+LEFT JOIN energias_alums e ON a.id_alum =e.id_ener AND e.grupo_ener LIKE '6%'
+LEFT JOIN automotrices_alums r ON a.id_alum =r.id_aut AND r.grupo_aut LIKE '6%'
+WHERE a.grupo LIKE '6%'
+   OR g.grupo_gas IS NOT NULL
+   OR s.grupo_sis IS NOT NULL
+   OR t.grupo_tics IS NOT NULL
+   OR d.grupo_admin IS NOT NULL
+   OR c.grupo_cp IS NOT NULL
+   OR n.grupo_amb IS NOT NULL
+   OR i.grupo_ind IS NOT NULL
+   OR e.grupo_ener IS NOT NULL
+   OR r.grupo_aut IS NOT NULL;
+
+
+-----------------------COMPARACION PARA SEPTIMO SEMESTRE 
+SELECT a.*
+FROM alumnos_teso a
+LEFT JOIN gastro_alums g ON a.id_alum = g.id_gastro AND g.grupo_gas LIKE '7%'
+LEFT JOIN sistemas_alums s ON a.id_alum = s.id_sis AND s.grupo_sis LIKE '7%'
+LEFT JOIN tics_alums t ON a.id_alum = t.id_tics AND t.grupo_tics LIKE '7%'
+LEFT JOIN administracion_alums d ON a.id_alum =d.id_admin AND d.grupo_admin LIKE '7%'
+LEFT JOIN contador_alums c ON a.id_alum =c.id_cp AND c.grupo_cp LIKE '7%'
+LEFT JOIN ambiental_alums n ON a.id_alum =n.id_amb AND n.grupo_amb LIKE '7%'
+LEFT JOIN industrial_alums i ON a.id_alum =i.id_ind AND i.grupo_ind LIKE '7%'
+LEFT JOIN energias_alums e ON a.id_alum =e.id_ener AND e.grupo_ener LIKE '7%'
+LEFT JOIN automotrices_alums r ON a.id_alum =r.id_aut AND r.grupo_aut LIKE '7%'
+WHERE a.grupo LIKE '7%'
+   OR g.grupo_gas IS NOT NULL
+   OR s.grupo_sis IS NOT NULL
+   OR t.grupo_tics IS NOT NULL
+   OR d.grupo_admin IS NOT NULL
+   OR c.grupo_cp IS NOT NULL
+   OR n.grupo_amb IS NOT NULL
+   OR i.grupo_ind IS NOT NULL
+   OR e.grupo_ener IS NOT NULL
+   OR r.grupo_aut IS NOT NULL;
+
+
+-----------------------COMPARACION PARA OCTAVO SEMESTRE 
+SELECT a.*
+FROM alumnos_teso a
+LEFT JOIN gastro_alums g ON a.id_alum = g.id_gastro AND g.grupo_gas LIKE '8%'
+LEFT JOIN sistemas_alums s ON a.id_alum = s.id_sis AND s.grupo_sis LIKE '8%'
+LEFT JOIN tics_alums t ON a.id_alum = t.id_tics AND t.grupo_tics LIKE '8%'
+LEFT JOIN administracion_alums d ON a.id_alum =d.id_admin AND d.grupo_admin LIKE '8%'
+LEFT JOIN contador_alums c ON a.id_alum =c.id_cp AND c.grupo_cp LIKE '8%'
+LEFT JOIN ambiental_alums n ON a.id_alum =n.id_amb AND n.grupo_amb LIKE '8%'
+LEFT JOIN industrial_alums i ON a.id_alum =i.id_ind AND i.grupo_ind LIKE '8%'
+LEFT JOIN energias_alums e ON a.id_alum =e.id_ener AND e.grupo_ener LIKE '8%'
+LEFT JOIN automotrices_alums r ON a.id_alum =r.id_aut AND r.grupo_aut LIKE '8%'
+WHERE a.grupo LIKE '8%'
+   OR g.grupo_gas IS NOT NULL
+   OR s.grupo_sis IS NOT NULL
+   OR t.grupo_tics IS NOT NULL
+   OR d.grupo_admin IS NOT NULL
+   OR c.grupo_cp IS NOT NULL
+   OR n.grupo_amb IS NOT NULL
+   OR i.grupo_ind IS NOT NULL
+   OR e.grupo_ener IS NOT NULL
+   OR r.grupo_aut IS NOT NULL;
+   
+
+-----------------------COMPARACION PARA NOVENO SEMESTRE 
+SELECT a.*
+FROM alumnos_teso a
+LEFT JOIN gastro_alums g ON a.id_alum = g.id_gastro AND g.grupo_gas LIKE '9%'
+LEFT JOIN sistemas_alums s ON a.id_alum = s.id_sis AND s.grupo_sis LIKE '9%'
+LEFT JOIN tics_alums t ON a.id_alum = t.id_tics AND t.grupo_tics LIKE '9%'
+LEFT JOIN administracion_alums d ON a.id_alum =d.id_admin AND d.grupo_admin LIKE '9%'
+LEFT JOIN contador_alums c ON a.id_alum =c.id_cp AND c.grupo_cp LIKE '9%'
+LEFT JOIN ambiental_alums n ON a.id_alum =n.id_amb AND n.grupo_amb LIKE '9%'
+LEFT JOIN industrial_alums i ON a.id_alum =i.id_ind AND i.grupo_ind LIKE '9%'
+LEFT JOIN energias_alums e ON a.id_alum =e.id_ener AND e.grupo_ener LIKE '9%'
+LEFT JOIN automotrices_alums r ON a.id_alum =r.id_aut AND r.grupo_aut LIKE '9%'
+WHERE a.grupo LIKE '9%'
+   OR g.grupo_gas IS NOT NULL
+   OR s.grupo_sis IS NOT NULL
+   OR t.grupo_tics IS NOT NULL
+   OR d.grupo_admin IS NOT NULL
+   OR c.grupo_cp IS NOT NULL
+   OR n.grupo_amb IS NOT NULL
+   OR i.grupo_ind IS NOT NULL
+   OR e.grupo_ener IS NOT NULL
+   OR r.grupo_aut IS NOT NULL;   
+   
+-----------------
+CREATE OR REPLACE PROCEDURE beca_tesoem 
+IS
+    promedio NUMBER;
+BEGIN
+    FOR beca in(SELECT id_alum, AVG(promedio) AS promedio
+                FROM alumnos_teso
+                GROUP BY id_alum)
+    LOOP
+    
+    promedio:=beca.promedios
+    -- Determinar el monto de la beca según el promedio
+    IF promedio >=95 AND promedio <=100 THEN 
+        DBMS_OUTPUT.PUT_LINE('El Alumno con ID' || beca.id_alum ||'Apto - Descuento del 100%');
+    ELSIF promedio >= 90 AND promedio <= 95 THEN
+        DBMS_OUTPUT.PUT_LINE('El Alumno con ID' || beca.id_alum ||'Apto - Descuento del 75%');
+    ELSIF promedio >= 85 AND promedio <= 90 THEN
+         DBMS_OUTPUT.PUT_LINE('El Alumno con ID' || beca.id_alum ||'Apto - Descuento del 50%');
+    ELSIF promedio >= 75 AND promedio <= 85 THEN
+         DBMS_OUTPUT.PUT_LINE('El Alumno con ID' || beca.id_alum ||'Apto - Descuento del 35%');
+    ELSE
+         DBMS_OUTPUT.PUT_LINE('El Alumno con ID' || beca.id_alum ||'No es Apto para la beca');
+    END IF;
+    END LOOP;
+END;
+
+CREATE OR REPLACE PROCEDURE beca_tesoem 
+IS
+BEGIN
+    FOR beca IN (SELECT id_alum, AVG(promedio) AS promedio
+                 FROM alumnos_teso
+                 GROUP BY id_alum)
+    LOOP
+        -- Determinar el monto de la beca según el promedio
+        IF beca.promedio >= 95 AND beca.promedio <= 100 THEN 
+            DBMS_OUTPUT.PUT_LINE('El Alumno con ID ' || beca.id_alum || ' es Apto - Descuento del 100%');
+        ELSIF beca.promedio >= 90 AND beca.promedio <= 95 THEN
+            DBMS_OUTPUT.PUT_LINE('El Alumno con ID ' || beca.id_alum || ' es Apto - Descuento del 75%');
+        ELSIF beca.promedio >= 85 AND beca.promedio <= 90 THEN
+            DBMS_OUTPUT.PUT_LINE('El Alumno con ID ' || beca.id_alum || ' es Apto - Descuento del 50%');
+        ELSIF beca.promedio >= 75 AND beca.promedio <= 85 THEN
+            DBMS_OUTPUT.PUT_LINE('El Alumno con ID ' || beca.id_alum || ' es Apto - Descuento del 35%');
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('El Alumno con ID ' || beca.id_alum || ' No es Apto para la beca');
+        END IF;
+    END LOOP;
+END;
+/
+SET SERVEROUTPUT ON;
+execute beca_tesoem;
+
+
+------------------------------PROCEDIMIENTO ALMACENADO PROFESORES
+
+create table profesores_tesoem(
+id_prof number (20) primary key not null,
+nombre_prof varchar (20) not null,
+apellido_p_p varchar (20) not null,
+apellido_m_p varchar (20) not null,
+carrera_prof varchar (80),
+constraint ch_carrera_prof check(carrera_prof in('Ing. Energias Renovables','Ing. Sistemas Computacionales', 'Ing. Tecnologias de la Información y Comunicaciones',
+'Ing. Sistemas Automotrices', 'Lic. Gastronomia', 'Ing. Ambiental', 'Ing. Industrial', 'Lic. Contador Público','Ing. Administracion')),
+nom_clas_prof varchar (100),
+grupos_prof nvarchar2 (20));
+
+SELECT * FROM profesores_tesoem;
+drop table profesores_tesoem;
+drop procedure insert_profes_tesoem; 
+
+/* PROCEDIMIENTO ALMACENADO DE LA TABLA PROFESORES */
+create or replace procedure insert_profes_tesoem
+(prof_id in number default 0, prof_nombre in varchar default 'Nombre', prof_p_apellido in varchar default 'ApellidoP',
+prof_m_apellido in varchar default 'ApellidoM', prof_carrera in varchar default  'Carrera',
+prof_clase in varchar default 'Clase', prof_grupo in nvarchar2 default 'Grupo')
+as
+begin
+    insert into profesores_tesoem values(prof_id, prof_nombre, prof_p_apellido, prof_m_apellido, prof_carrera, prof_clase, prof_grupo);
+end;
+
+---------------------------EXECUTE DE LOS PROFESORES 
+
+
+drop table profesores_tesoem;
+----------------CREACION DE TABLA DE PROFESORES SISTEMAS
+create table profesores_tesoem_sis(
+id_prof_sis number (20) primary key not null,
+nombre_prof_sis varchar (20) not null,
+apellido_p_sis varchar (20) not null,
+apellido_m_sis varchar (20) not null,
+carrera_prof_sis varchar (80),
+constraint ch_sis_prof check(carrera_prof_sis in('Ing. Sistemas Computacionales')),
+nom_clas_prof_sis varchar (100),
+grupos_prof_sis nvarchar2 (20));
+----------------CREACION DE TABLA DE PROFESORES TICS
+create table profesores_tesoem_tics(
+id_prof_tics number (20) primary key not null,
+nombre_prof_tics varchar (20) not null,
+apellido_p_tics varchar (20) not null,
+apellido_m_tics varchar (20) not null,
+carrera_prof_tics varchar (80),
+constraint ch_tics_prof check(carrera_prof_tics in('Ing. Tecnologias de la Información y Comunicaciones')),
+nom_clas_prof_tics varchar (100),
+grupos_prof_tics nvarchar2 (20));
+
+----------------CREACION DE TABLA DE PROFESORES ADMINISTRACION
+create table profesores_tesoem_adm(
+id_prof_adm number (20) primary key not null,
+nombre_prof_adm varchar (20) not null,
+apellido_p_adm varchar (20) not null,
+apellido_m_adm varchar (20) not null,
+carrera_prof_adm varchar (80),
+constraint ch_adm_prof check(carrera_prof_adm in('Ing. Administracion')),
+nom_clas_prof_adm varchar (100),
+grupos_prof_adm nvarchar2 (20));
+----------------CREACION DE TABLA DE PROFESORES SISTEMAS AUTOMOTRICES
+create table profesores_tesoem_aut(
+id_prof_aut number (20) primary key not null,
+nombre_prof_aut varchar (20) not null,
+apellido_p_aut varchar (20) not null,
+apellido_m_aut varchar (20) not null,
+carrera_prof_aut varchar (80),
+constraint ch_aut_prof check(carrera_prof_aut in('Ing. Sistemas Automotrices')),
+nom_clas_prof_aut varchar (100),
+grupos_prof_aut nvarchar2 (20));
+----------------CREACION DE TABLA DE PROFESORES GASTRONOMIA
+create table profesores_tesoem_gas(
+id_prof_gas number (20) primary key not null,
+nombre_prof_gas varchar (20) not null,
+apellido_p_gas varchar (20) not null,
+apellido_m_gas varchar (20) not null,
+carrera_prof_gas varchar (80),
+constraint ch_gas_prof check(carrera_prof_gas in('Lic. Gastronomia')),
+nom_clas_prof_gas varchar (100),
+grupos_prof_gas nvarchar2 (20));
+----------------CREACION DE TABLA DE PROFESORES ENERGIAS RENOVABLES
+create table profesores_tesoem_ener(
+id_prof_ener number (20) primary key not null,
+nombre_prof_ener varchar (20) not null,
+apellido_p_ener varchar (20) not null,
+apellido_m_ener varchar (20) not null,
+carrera_prof_ener varchar (80),
+constraint ch_ener_prof check(carrera_prof_ener in('Ing. Energias Renovables')),
+nom_clas_prof_ener varchar (100),
+grupos_prof_ener nvarchar2 (20));
+----------------CREACION DE TABLA DE PROFESORES CONTABILIDAD
+create table profesores_tesoem_conta(
+id_prof_conta number (20) primary key not null,
+nombre_prof_conta varchar (20) not null,
+apellido_p_conta varchar (20) not null,
+apellido_m_conta varchar (20) not null,
+carrera_prof_conta varchar (80),
+constraint ch_conta_prof check(carrera_prof_conta in('Lic. Contador Público')),
+nom_clas_prof_conta varchar (100),
+grupos_prof_conta nvarchar2 (20));
+----------------CREACION DE TABLA DE PROFESORES INDUSTRIAL
+create table profesores_tesoem_ind(
+id_prof_ind number (20) primary key not null,
+nombre_prof_ind varchar (20) not null,
+apellido_p_ind varchar (20) not null,
+apellido_m_ind varchar (20) not null,
+carrera_prof_ind varchar (80),
+constraint ch_ind_prof check(carrera_prof_ind in('Ing. Industrial')),
+nom_clas_prof_ind varchar (100),
+grupos_prof_ind nvarchar2 (20));
+----------------CREACION DE TABLA DE PROFESORES AMBIENTAL
+create table profesores_tesoem_amb(
+id_prof_amb number (20) primary key not null,
+nombre_prof_amb varchar (20) not null,
+apellido_p_amb varchar (20) not null,
+apellido_m_amb varchar (20) not null,
+carrera_prof_amb varchar (80),
+constraint ch_amb_prof check(carrera_prof_amb in('Ing. Ambiental')),
+nom_clas_prof_amb varchar (100),
+grupos_prof_amb nvarchar2 (20));
+
+
+
+select * from profesores_tesoem_sis;
+select * from profesores_tesoem_tics;
+select * from profesores_tesoem_adm;
+select * from profesores_tesoem_aut;
+select * from profesores_tesoem_gas;
+select * from profesores_tesoem_ener;
+select * from profesores_tesoem_conta;
+select * from profesores_tesoem_ind;
+select * from profesores_tesoem_amb;
+
+drop table profesores_tesoem_sis;
+drop table profesores_tesoem_tics;
+drop table profesores_tesoem_adm;
+drop table profesores_tesoem_aut;
+drop table profesores_tesoem_gas;
+drop table profesores_tesoem_ener;
+drop table profesores_tesoem_conta;
+drop table profesores_tesoem_ind;
+drop table profesores_tesoem_amb;
+
+
+
+create or replace procedure pa_insert_profes_carreras
+as
+begin
+--
+    INSERT INTO profesores_tesoem_gas (id_prof_gas, nombre_prof_gas, apellido_p_gas, apellido_m_gas, carrera_prof_gas, nom_clas_prof_gas, grupos_prof_gas )
+    select id_prof, nombre_prof, apellido_p_p, apellido_m_p, carrera_prof, nom_clas_prof, grupos_prof 
+    from profesores_tesoem 
+    where  carrera_prof='Lic. Gastronomia';
+    
+   INSERT INTO profesores_tesoem_ener (id_prof_ener, nombre_prof_ener, apellido_p_ener, apellido_m_ener, carrera_prof_ener, nom_clas_prof_ener, grupos_prof_ener )
+    select id_prof, nombre_prof, apellido_p_p, apellido_m_p, carrera_prof, nom_clas_prof, grupos_prof 
+    from profesores_tesoem 
+    where  carrera_prof='Ing. Energias Renovables';
+    
+    INSERT INTO profesores_tesoem_adm(id_prof_adm, nombre_prof_adm, apellido_p_adm, apellido_m_adm, carrera_prof_adm, nom_clas_prof_adm, grupos_prof_adm )
+    select id_prof, nombre_prof, apellido_p_p, apellido_m_p, carrera_prof, nom_clas_prof, grupos_prof 
+    from profesores_tesoem 
+    where  carrera_prof='Ing. Administracion';
+    
+       INSERT INTO profesores_tesoem_aut (id_prof_aut, nombre_prof_aut, apellido_p_aut, apellido_m_aut, carrera_prof_aut, nom_clas_prof_aut, grupos_prof_aut )
+  select id_prof, nombre_prof, apellido_p_p, apellido_m_p, carrera_prof, nom_clas_prof, grupos_prof 
+  from profesores_tesoem 
+  where  carrera_prof = 'Ing. Sistemas Automotrices';
+    
+    INSERT INTO profesores_tesoem_ind (id_prof_ind, nombre_prof_ind, apellido_p_ind, apellido_m_ind, carrera_prof_ind, nom_clas_prof_ind, grupos_prof_ind )
+    select id_prof, nombre_prof, apellido_p_p, apellido_m_p, carrera_prof, nom_clas_prof, grupos_prof 
+    from profesores_tesoem 
+    where  carrera_prof='Ing. Industrial';
+    
+    INSERT INTO profesores_tesoem_amb (id_prof_amb, nombre_prof_amb, apellido_p_amb, apellido_m_amb, carrera_prof_amb, nom_clas_prof_amb, grupos_prof_amb )
+    select id_prof, nombre_prof, apellido_p_p, apellido_m_p, carrera_prof, nom_clas_prof, grupos_prof 
+    from profesores_tesoem 
+    where  carrera_prof='Ing. Ambiental';
+    
+    INSERT INTO profesores_tesoem_sis( id_prof_sis, nombre_prof_sis, apellido_p_sis, apellido_m_sis, carrera_prof_sis, nom_clas_prof_sis, grupos_prof_sis )
+    select id_prof, nombre_prof, apellido_p_p, apellido_m_p, carrera_prof, nom_clas_prof, grupos_prof 
+    from profesores_tesoem 
+    where  carrera_prof='Ing. Sistemas Computacionales';
+    
+    INSERT INTO profesores_tesoem_tics (id_prof_tics, nombre_prof_tics, apellido_p_tics, apellido_m_tics, carrera_prof_tics, nom_clas_prof_tics, grupos_prof_tics)
+    select id_prof, nombre_prof, apellido_p_p, apellido_m_p, carrera_prof, nom_clas_prof, grupos_prof 
+    from profesores_tesoem 
+    where  carrera_prof='Ing. Tecnologias de la Información y Comunicaciones';
+    
+    INSERT INTO profesores_tesoem_conta ( id_prof_conta, nombre_prof_conta, apellido_p_conta, apellido_m_conta, carrera_prof_conta, nom_clas_prof_conta, grupos_prof_conta)
+    select id_prof, nombre_prof, apellido_p_p, apellido_m_p, carrera_prof, nom_clas_prof, grupos_prof 
+    from profesores_tesoem 
+    where  carrera_prof='Lic. Contador Público'; 
+end;
+
+drop procedure pa_insert_alumnos_carreras;
+execute pa_insert_profes_carreras;
+--------------------------CREACION DE PROCEDIMIENTOS DE BECAS----------
+-------------TABLA PARA ALUMNOS CON 100%
+CREATE TABLE alumnos_beca_p(
+id_alum_beca_p number(5) primary key,
+matricula_beca_p number (10),
+CONSTRAINT unique_map UNIQUE (matricula_beca_p), 
+Nombre_beca_p varchar2(80),
+carrera_beca_p varchar2(80),
+grupo_beca_p varchar2(20),
+semestre_beca_p number(2),
+CONSTRAINT ch_semestre_p check(Semestre_beca_p<=9),
+promedio_beca_p number(5,2),
+descuento varchar2(80) default 'Tiene 100% de descuento'
+);
+-------------TABLA PARA ALUMNOS CON 75%
+CREATE TABLE alumnos_beca_s(
+id_alum_beca_s number(5) primary key,
+matricula_beca_s number (10),
+CONSTRAINT unique_mas UNIQUE (matricula_beca_s), 
+Nombre_beca_s varchar2(80),
+carrera_beca_s varchar2(80),
+grupo_beca_s varchar2(20),
+semestre_beca_s number(2),
+CONSTRAINT ch_semestre_seg check(Semestre_beca_s<=9),
+promedio_beca_s number(5,2),
+descuento varchar2(80) default 'Tiene 75% de descuento'
+);
+-------------TABLA PARA ALUMNOS CON 50%
+CREATE TABLE alumnos_beca_t(
+id_alum_beca_t number(5) primary key,
+matricula_beca_t number (10),
+CONSTRAINT unique_matre UNIQUE (matricula_beca_t), 
+Nombre_beca_t varchar2(80),
+carrera_beca_t varchar2(80),
+grupo_beca_t varchar2(20),
+semestre_beca_t number(2),
+CONSTRAINT ch_semestre_te check(Semestre_beca_t<=9),
+promedio_beca_t number(5,2),
+descuento varchar2(80) default 'Tiene 50% de descuento'
+);
+-------------TABLA PARA ALUMNOS CON 35%
+CREATE TABLE alumnos_beca_c(
+id_alum_beca_c number(5) primary key,
+matricula_beca_c number (10),
+CONSTRAINT unique_mac UNIQUE (matricula_beca_c), 
+Nombre_beca_c varchar2(80),
+carrera_beca_c varchar2(80),
+grupo_beca_c varchar2(20),
+semestre_beca_c number(2),
+CONSTRAINT ch_semestre_c check(Semestre_beca_c<=9),
+promedio_beca_c number(5,2),
+descuento varchar2(80) default 'Tiene 35% de descuento'
+);
+-------------TABLA PARA ALUMNOS CON 25%
+CREATE TABLE alumnos_beca_q(
+id_alum_beca_q number(5) primary key,
+matricula_beca_q number (10),
+CONSTRAINT unique_maq UNIQUE (matricula_beca_q), 
+Nombre_beca_q varchar2(80),
+carrera_beca_q varchar2(80),
+grupo_beca_q varchar2(20),
+semestre_beca_q number(2),
+CONSTRAINT ch_semestre_q check(Semestre_beca_q<=9),
+promedio_beca_q number(5,2),
+descuento varchar2(80) default 'Tiene 25% de descuento'
+);
+-------------TABLA PARA ALUMNOS CON 10%
+
+CREATE TABLE alumnos_beca_se(
+id_alum_beca_se number(5) primary key,
+matricula_beca_se number (10),
+CONSTRAINT unique_mase UNIQUE (matricula_beca_se), 
+Nombre_beca_se varchar2(80),
+carrera_beca_se varchar2(80),
+grupo_beca_se varchar2(20),
+semestre_beca_se number(2),
+CONSTRAINT ch_semestre_se check(Semestre_beca_se<=9),
+promedio_beca_se number(5,2),
+descuento varchar2(80) default 'Tiene 10% de descuento'
+);
+-------------TABLA PARA ALUMNOS CON 0%
+CREATE TABLE alumnos_beca_sp(
+id_alum_beca_sp number(5) primary key,
+matricula_beca_sp number (10),
+CONSTRAINT unique_masp UNIQUE (matricula_beca_sp), 
+Nombre_beca_sp varchar2(80),
+carrera_beca_sp varchar2(80),
+grupo_beca_sp varchar2(20),
+semestre_beca_sp number(2),
+CONSTRAINT ch_semestre_sp check(Semestre_beca_sp<=9),
+promedio_beca_sp number(5,2),
+descuento varchar2(80) default '0% No tiene beca'
+);
+
+select* from alumnos_beca_sp;
+select* from alumnos_beca_se;
+select* from alumnos_beca_q;
+select* from alumnos_beca_c;
+select* from alumnos_beca_t;
+select* from alumnos_beca_s;
+select* from alumnos_beca_p;
+
+drop table  alumnos_beca_sp;
+drop table alumnos_beca_se;
+drop table alumnos_beca_q;
+drop table alumnos_beca_c;
+drop table alumnos_beca_t;
+drop table alumnos_beca_s;
+drop table alumnos_beca_p;
+
+CREATE OR REPLACE PROCEDURE pa_insert_alumnos_becas
+AS
+BEGIN
+    --
+    INSERT INTO alumnos_beca_p (id_alum_beca_p, matricula_beca_p, nombre_beca_p, carrera_beca_p, grupo_beca_p, semestre_beca_p, promedio_beca_p)
+    SELECT id_alum, matricula, nombre || ' ' || apellido_p || ' ' || apellido_m, carrera, grupo, semestre, promedio
+    FROM alumnos_teso
+    WHERE promedio >= 95 AND promedio <= 100;
+    
+    INSERT INTO alumnos_beca_s (id_alum_beca_s, matricula_beca_s, nombre_beca_s, carrera_beca_s, grupo_beca_s, semestre_beca_s, promedio_beca_s)
+    SELECT id_alum, matricula, nombre || ' ' || apellido_p || ' ' || apellido_m, carrera, grupo, semestre, promedio
+    FROM alumnos_teso
+    WHERE promedio <= 94 AND promedio >= 92;
+    
+    INSERT INTO alumnos_beca_t (id_alum_beca_t, matricula_beca_t, nombre_beca_t, carrera_beca_t, grupo_beca_t, semestre_beca_t, promedio_beca_t)
+    SELECT id_alum, matricula, nombre || ' ' || apellido_p || ' ' || apellido_m, carrera, grupo, semestre, promedio
+    FROM alumnos_teso
+    WHERE promedio = 90 OR promedio = 91;
+    
+    INSERT INTO alumnos_beca_c (id_alum_beca_c, matricula_beca_c, nombre_beca_c, carrera_beca_c, grupo_beca_c, semestre_beca_c, promedio_beca_c)
+    SELECT id_alum, matricula, nombre || ' ' || apellido_p || ' ' || apellido_m, carrera, grupo, semestre, promedio
+    FROM alumnos_teso
+    WHERE promedio >= 87 AND promedio <= 89;
+    
+    INSERT INTO alumnos_beca_q (id_alum_beca_q, matricula_beca_q, nombre_beca_q, carrera_beca_q, grupo_beca_q, semestre_beca_q, promedio_beca_q)
+    SELECT id_alum, matricula, nombre || ' ' || apellido_p || ' ' || apellido_m, carrera, grupo, semestre, promedio
+    FROM alumnos_teso
+    WHERE promedio <= 86 AND promedio >= 84;
+    
+    INSERT INTO alumnos_beca_se (id_alum_beca_se, matricula_beca_se, nombre_beca_se, carrera_beca_se, grupo_beca_se, semestre_beca_se, promedio_beca_se)
+    SELECT id_alum, matricula, nombre || ' ' || apellido_p || ' ' || apellido_m, carrera, grupo, semestre, promedio
+    FROM alumnos_teso
+    WHERE promedio <= 83 AND promedio >= 80;
+    
+    INSERT INTO alumnos_beca_sp (id_alum_beca_sp, matricula_beca_sp, nombre_beca_sp, carrera_beca_sp, grupo_beca_sp, semestre_beca_sp, promedio_beca_sp)
+    SELECT id_alum, matricula, nombre || ' ' || apellido_p || ' ' |
+    | apellido_m, carrera, grupo, semestre, promedio
+    FROM alumnos_teso
+    WHERE promedio <= 79 AND promedio >= 0;
+end;
+
+execute pa_insert_alumnos_becas;
